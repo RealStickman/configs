@@ -22,6 +22,7 @@
     libsForQt5.qt5.qtwayland # wayland for at5
     polkit_gnome # graphical authentication agent for polkit
     freetype # font rendering and configuration
+    open-vm-tools # running on vmware
   ];
 
   fonts.fonts = with pkgs; [
