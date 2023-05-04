@@ -24,6 +24,7 @@
     freetype # font rendering and configuration
     open-vm-tools # running on vmware
     openbox # window manager for debugging in VMs
+    openbox-menu # automatically generates the openbox menu based on xdg-entries
   ];
 
   fonts.fonts = with pkgs; [
