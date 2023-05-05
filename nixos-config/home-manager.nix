@@ -71,7 +71,7 @@ in
           Service = {
             Type = "simple";
             Environment = "SSH_AUTH_SOCK=%t/ssh-agent.socket";
-            ExecStart = "/run/current-system/sw/bin/ssh-agent -D -a $SSH_AUTH_SOCK";
+            ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a $SSH_AUTH_SOCK";
           };
           Install = {
             WantedBy = [ "default.target" ];
@@ -80,7 +80,7 @@ in
       };
       # user environment variables
       sessionVariables = {
-        SSH_AUTH_SOCK = "/run/user/1000/ssh-agent.socket";
+        SSH_AUTH_SOCK = "${builtins.getEnv"XDG_RUNTIME_DIR"}/ssh-agent.socket";
       };
     };
 
