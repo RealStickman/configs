@@ -84,7 +84,7 @@ in
       enable = true;
       wayland = true;
     };
-    windowManager.openbox.enable = true;
+    desktopManager.lxqt.enable = true;
   };
 
   # enable gvfs service
