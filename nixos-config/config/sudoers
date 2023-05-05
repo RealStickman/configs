@@ -2,7 +2,7 @@
 # or ‘security.sudo.extraRules’ instead.
 
 # Set editor to nvim
-Defaults editor=/run/current-system/sw/bin/nvim
+Defaults editor=${pkgs.neovim}/bin/nvim
 
 # Keep SSH_AUTH_SOCK so that pam_ssh_agent_auth.so can do its magic.
 Defaults env_keep+=SSH_AUTH_SOCK
