@@ -156,6 +156,17 @@ in
   # Enable thumbnailer service
   services.tumbler.enable = true;
 
+  virtualisation = {
+    podman = {
+      enable = true;
+      # clean up regularly
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+      };
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
