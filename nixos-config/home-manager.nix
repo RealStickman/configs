@@ -80,6 +80,7 @@ in
       };
       # user environment variables
       sessionVariables = {
+        # see https://discourse.nixos.org/t/how-to-use-xdg-runtime-dir-in-pam-sessionvariables/10120/3 about the builtin variable
         SSH_AUTH_SOCK = "${builtins.getEnv"XDG_RUNTIME_DIR"}/ssh-agent.socket";
       };
     };
