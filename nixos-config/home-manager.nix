@@ -170,6 +170,7 @@ in
       # transmission remote settings
       ".config/transmission-remote-gtk".source = ./home-manager/config/transmission-remote-gtk;
       # TODO firefox configuration
+      # TODO calibre configuration
     };
 
   services.mako.enable = true;
