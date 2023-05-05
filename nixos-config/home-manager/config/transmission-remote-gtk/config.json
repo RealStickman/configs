@@ -1,0 +1,115 @@
+{
+  "profiles" : [
+    {
+      "profile-name" : "Default",
+      "hostname" : "172.18.50.103",
+      "port" : 9091,
+      "rpc-url-path" : "/transmission/rpc",
+      "username" : "",
+      "password" : "",
+      "auto-connect" : true,
+      "ssl" : false,
+      "ssl-validate" : false,
+      "timeout" : 40,
+      "retries" : 3,
+      "update-active-only" : false,
+      "activeonly-fullsync-enabled" : false,
+      "activeonly-fullsync-every" : 2,
+      "update-interval" : 3,
+      "min-update-interval" : 3,
+      "session-update-interval" : 60,
+      "custom-headers" : [],
+      "exec-commands" : [],
+      "destinations" : []
+    }
+  ],
+  "profile-id" : 0,
+  "tree-views" : {
+    "TrgTorrentTreeView" : {
+      "sort-col" : 22,
+      "sort-type" : 0
+    },
+    "TrgTrackersTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        72,
+        146,
+        85,
+        142,
+        148,
+        149,
+        126,
+        128
+      ],
+      "columns" : [
+        "tier",
+        "announce-url",
+        "last-announce-peer-count",
+        "seeder-count",
+        "leecher-count",
+        "last-announce-time",
+        "last-result",
+        "scrape-url"
+      ]
+    },
+    "TrgFilesTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        189,
+        176,
+        211,
+        220,
+        200
+      ],
+      "columns" : [
+        "name",
+        "size",
+        "progress",
+        "wanted",
+        "priority"
+      ]
+    },
+    "TrgPeersTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        89,
+        107,
+        129,
+        163,
+        142,
+        137,
+        112,
+        117
+      ],
+      "columns" : [
+        "ip",
+        "host",
+        "country",
+        "down-speed",
+        "up-speed",
+        "progress",
+        "flags",
+        "client"
+      ]
+    }
+  },
+  "start-paused" : false,
+  "add-options-dialog" : true,
+  "delete-local-torrent" : false,
+  "show-state-selector" : true,
+  "filter-dirs" : true,
+  "filter-trackers" : true,
+  "directories-first" : true,
+  "show-notebook" : false,
+  "system-tray" : false,
+  "system-tray-minimise" : false,
+  "add-notify" : false,
+  "complete-notify" : false,
+  "window-height" : 1056,
+  "window-width" : 1916,
+  "notebook-paned-pos" : 300,
+  "states-paned-pos" : 120
+}

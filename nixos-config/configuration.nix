@@ -157,6 +157,26 @@ in
   # Enable thumbnailer service
   services.tumbler.enable = true;
 
+  fonts.fontconfig = {
+    enable = true;
+    hinting = {
+      enable = true;
+      autohint = false;
+      style = "hintfull";
+    };
+    subpixel = {
+      rgba = "rgb";
+      lcdfilter = "default";
+    };
+    antialias = true;
+    defaultFonts = {
+      serif = [ "Droid Serif" ];
+      sansSerif = [ "Fira Sans" ];
+      monospace = [ "Fira Code" "Fira Mono" ];
+      #emoji = [ "Font Awesome" ];
+    };
+  };
+
   virtualisation = {
     podman = {
       enable = true;

@@ -36,7 +36,6 @@ in
       pciutils # lspci command
       git # git
       emacs # emacs editor
-      emacsPackages.doom # doom emacs configuration
       acpilight # controlling laptop monitor backlight
       networkmanagerapplet # network configuration
       wofi # app launcher (wayland replacement for rofi)
@@ -53,6 +52,7 @@ in
       xfce.thunar-archive-plugin # manage archives in thunar
       #xfce.xfce4-settings # xfce settings manager
       xfce.xfconf # xfce config storage
+      transmission-remote-gtk # torrent remote controll gui
     ];
 
     imports = [
@@ -105,12 +105,42 @@ in
       };
     };
 
-    programs.waybar = {
-      enable = true;
-      settings = {
-        mainBar = (builtins.fromJSON (builtins.readFile ./home-manager/config/waybar/config.json));
+    programs = {
+      waybar = {
+        enable = true;
+        settings = {
+          mainBar = (builtins.fromJSON (builtins.readFile ./home-manager/config/waybar/config.json));
+        };
+        style = (builtins.readFile ./home-manager/config/waybar/style.css);
       };
-      style = (builtins.readFile ./home-manager/config/waybar/style.css);
+      kitty = {
+        enable = true;
+        extraConfig = (builtins.readFile ./home-manager/config/kitty/kitty.conf);
+      };
+      ssh = {
+        enable = true;
+        extraOptionOverrides = {
+          extraConfig = "AddKeysToAgent yes";
+        };
+        matchBlocks = [
+          {
+            host = "gitlab.com";
+            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+          }
+          {
+            host = "github.com";
+            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+          }
+          {
+            host = "gitea.exu.li";
+            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+          }
+          {
+            host = "aur.archlinux.org";
+            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+          }
+        ];
+      };
     };
 
     home.file = {
@@ -135,6 +165,11 @@ in
       ".config/user-dirs.dirs".source = ./home-manager/config/user-dirs.dirs;
       # xdg user locales
       ".config/user-dirs.locale".source = ./home-manager/config/user-dirs.locale;
+      # libreoffice settings
+      ".config/libreoffice".source = ./home-manager/config/libreoffice;
+      # transmission remote settings
+      ".config/transmission-remote-gtk".source = ./home-manager/config/transmission-remote-gtk;
+      # TODO firefox configuration
     };
 
   services.mako.enable = true;

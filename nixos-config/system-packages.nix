@@ -30,5 +30,6 @@
     fira # fira sans font
     fira-code # fira code font
     font-awesome # icons font
+    fira-mono # fira monospace without ligatures
   ];
 }
