@@ -48,6 +48,9 @@ in {
       #xfce.xfce4-settings # xfce settings manager
       xfce.xfconf # xfce config storage
       transmission-remote-gtk # torrent remote controll gui
+      libreoffice-fresh # office document editor
+      hunspell # offline spellchecker (en)
+      hunspellDicts.de_CH # adds German (Switzerland) for hunspell
     ];
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
