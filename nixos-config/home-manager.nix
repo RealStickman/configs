@@ -104,24 +104,24 @@ in {
       ssh = {
         enable = true;
         extraOptionOverrides = { AddKeysToAgent = "yes"; };
-        matchBlocks = [
-          {
+        matchBlocks = {
+          "gitlab.com" = {
             host = "gitlab.com";
             identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
-          }
-          {
+          };
+          "github.com" = {
             host = "github.com";
             identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
-          }
-          {
+          };
+          "gitea.exu.li" = {
             host = "gitea.exu.li";
             identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
-          }
-          {
+          };
+          "aur.archlinux.org" = {
             host = "aur.archlinux.org";
             identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
-          }
-        ];
+          };
+        };
       };
     };
 
