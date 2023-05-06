@@ -103,27 +103,23 @@ in {
       };
       ssh = {
         enable = true;
-        extraOptionOverrides = {
-          AddKeysToAgent = "yes";
-          test = "${builtins.getEnv "HOME"}";
-          test2 = "${builtins.getEnv "XDG_RUNTIME_DIR"}";
-        };
+        extraOptionOverrides = { AddKeysToAgent = "yes"; };
         matchBlocks = [
           {
             host = "gitlab.com";
-            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
           }
           {
             host = "github.com";
-            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
           }
           {
             host = "gitea.exu.li";
-            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
           }
           {
             host = "aur.archlinux.org";
-            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "/home/${user}/.ssh/id_ed25519_git" ];
           }
         ];
       };
