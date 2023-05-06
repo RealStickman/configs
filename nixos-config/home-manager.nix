@@ -3,25 +3,20 @@
 let
   user = "exu";
   hostname = "nixos";
-in
-{
-  imports = [
-    <home-manager/nixos>
-  ];
+in {
+  imports = [ <home-manager/nixos> ];
 
   # root home
   home-manager.users.root = { pkgs, ... }: {
     home.username = "root";
     home.homeDirectory = "/root";
     home.stateVersion = "22.11";
-    home.packages = with pkgs; [
-      kitty # terminfo support
-    ];
+    home.packages = with pkgs;
+      [
+        kitty # terminfo support
+      ];
 
-    imports = [
-      ./home-manager/hyprland.nix
-      ./home-manager/fish.nix
-    ];
+    imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
 
   };
 
@@ -55,33 +50,26 @@ in
       transmission-remote-gtk # torrent remote controll gui
     ];
 
-    imports = [
-      ./home-manager/hyprland.nix
-      ./home-manager/fish.nix
-    ];
+    imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
 
     systemd.user = {
       # user services
       services = {
         # ssh-agent user service
         ssh-agent = {
-          Unit = {
-            Description = "SSH key agent";
-          };
+          Unit = { Description = "SSH key agent"; };
           Service = {
             Type = "simple";
             Environment = "SSH_AUTH_SOCK=%t/ssh-agent.socket";
             ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a $SSH_AUTH_SOCK";
           };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
+          Install = { WantedBy = [ "default.target" ]; };
         };
       };
       # user environment variables
       sessionVariables = {
         # see https://discourse.nixos.org/t/how-to-use-xdg-runtime-dir-in-pam-sessionvariables/10120/3 about the builtin variable
-        SSH_AUTH_SOCK = "${builtins.getEnv"XDG_RUNTIME_DIR"}/ssh-agent.socket";
+        SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent.socket";
       };
     };
 
@@ -89,19 +77,13 @@ in
     programs.git = {
       enable = true;
       extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
+        init = { defaultBranch = "main"; };
         user = {
           name = "RealStickman";
           email = "mrc@frm01.net";
         };
-        gitlab = {
-          user = "RealStickman";
-        };
-        github = {
-          user = "RealStickman";
-        };
+        gitlab = { user = "RealStickman"; };
+        github = { user = "RealStickman"; };
       };
     };
 
@@ -109,35 +91,35 @@ in
       waybar = {
         enable = true;
         settings = {
-          mainBar = (builtins.fromJSON (builtins.readFile ./home-manager/config/waybar/config.json));
+          mainBar = (builtins.fromJSON
+            (builtins.readFile ./home-manager/config/waybar/config.json));
         };
         style = (builtins.readFile ./home-manager/config/waybar/style.css);
       };
       kitty = {
         enable = true;
-        extraConfig = (builtins.readFile ./home-manager/config/kitty/kitty.conf);
+        extraConfig =
+          (builtins.readFile ./home-manager/config/kitty/kitty.conf);
       };
       ssh = {
         enable = true;
-        extraOptionOverrides = {
-          extraConfig = "AddKeysToAgent yes";
-        };
+        extraOptionOverrides = { AddKeysToAgent = "yes"; };
         matchBlocks = [
           {
             host = "gitlab.com";
-            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
           }
           {
             host = "github.com";
-            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
           }
           {
             host = "gitea.exu.li";
-            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
           }
           {
             host = "aur.archlinux.org";
-            identityFile = [ "${builtins.getEnv"HOME"}/.ssh/id_ed25519_git" ];
+            identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519_git" ];
           }
         ];
       };
@@ -164,15 +146,17 @@ in
       # xdg user dirs
       ".config/user-dirs.dirs".source = ./home-manager/config/user-dirs.dirs;
       # xdg user locales
-      ".config/user-dirs.locale".source = ./home-manager/config/user-dirs.locale;
+      ".config/user-dirs.locale".source =
+        ./home-manager/config/user-dirs.locale;
       # libreoffice settings
       ".config/libreoffice".source = ./home-manager/config/libreoffice;
       # transmission remote settings
-      ".config/transmission-remote-gtk".source = ./home-manager/config/transmission-remote-gtk;
+      ".config/transmission-remote-gtk".source =
+        ./home-manager/config/transmission-remote-gtk;
       # TODO firefox configuration
       # TODO calibre configuration
     };
 
-  services.mako.enable = true;
+    services.mako.enable = true;
   };
 }
