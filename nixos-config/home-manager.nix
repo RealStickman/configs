@@ -103,9 +103,11 @@ in {
       };
       ssh = {
         enable = true;
-        extraOptionOverrides = { AddKeysToAgent = "yes"; };
-        test = "${builtins.getEnv "HOME"}";
-        test2 = "${builtins.getEnv "XDG_RUNTIME_DIR"}";
+        extraOptionOverrides = {
+          AddKeysToAgent = "yes";
+          test = "${builtins.getEnv "HOME"}";
+          test2 = "${builtins.getEnv "XDG_RUNTIME_DIR"}";
+        };
         matchBlocks = [
           {
             host = "gitlab.com";
