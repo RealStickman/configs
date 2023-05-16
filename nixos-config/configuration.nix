@@ -7,13 +7,9 @@
 let
   user = "exu";
   hostname = "nixos";
-in
-{
-  imports = [
-      ./hardware-configuration.nix
-      ./system-packages.nix
-      ./home-manager.nix
-    ];
+in {
+  imports =
+    [ ./hardware-configuration.nix ./system-packages.nix ./home-manager.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -21,9 +17,7 @@ in
       enable = true;
       configurationLimit = 10;
     };
-    efi = {
-      canTouchEfiVariables = true;
-    };
+    efi = { canTouchEfiVariables = true; };
   };
 
   # Enable completions by nix
@@ -46,16 +40,17 @@ in
     etc = {
       # gtk theme configuration
       # src: https://unix.stackexchange.com/questions/632879/how-to-set-a-system-wide-gtk-theme-in-nixos
-      "gtk-2.0/gtkrc".source =  ./config/gtk-2.0/gtkrc;
-      "gtk-3.0/settings.ini".source =  ./config/gtk-3.0/settings.ini;
-      "gtk-4.0/settings.ini".source =  ./config/gtk-4.0/settings.ini;
+      "gtk-2.0/gtkrc".source = ./config/gtk-2.0/gtkrc;
+      "gtk-3.0/settings.ini".source = ./config/gtk-3.0/settings.ini;
+      "gtk-4.0/settings.ini".source = ./config/gtk-4.0/settings.ini;
     };
   };
 
   networking.hostName = "${hostname}"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   # disable global firewall for the time being
   networking.firewall.enable = false;
@@ -69,9 +64,7 @@ in
 
   # Select internationalisation properties.
   i18n.defaultLocale = "de_CH.UTF-8";
-  console = {
-    keyMap = "de_CH-latin1";
-  };
+  console = { keyMap = "de_CH-latin1"; };
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -93,9 +86,7 @@ in
 
   # Hyprland
   security.polkit.enable = true;
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland = { enable = true; };
 
   # sudoers file
   security.sudo.configFile = (builtins.readFile ./config/sudoers);
@@ -126,9 +117,7 @@ in
   services.xserver.libinput.enable = true;
 
   # root config
-  users.users.root = {
-    shell = pkgs.fish;
-  };
+  users.users.root = { shell = pkgs.fish; };
 
   # User config
   users.users.${user} = {
@@ -208,7 +197,7 @@ in
   };
 
   # Swapfile
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  swapDevices = [{ device = "/swap/swapfile"; }];
 
   # Enable automatic package upgrades
   #system.autoUpgrade = {

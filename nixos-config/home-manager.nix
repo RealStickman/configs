@@ -6,6 +6,9 @@ let
 in {
   imports = [ <home-manager/nixos> ];
 
+  # allow unfree packages as well
+  nixpkgs.config.allowUnfree = true;
+
   # root home
   home-manager.users.root = { pkgs, ... }: {
     home.username = "root";
@@ -17,9 +20,6 @@ in {
       ];
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
-
-    # allow unfree packages as well
-    nixpkgs.config.allowUnfree = true;
 
   };
 
