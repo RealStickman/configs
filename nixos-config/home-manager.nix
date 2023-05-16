@@ -130,7 +130,7 @@ in {
       };
     };
 
-    services.dunst = { enable = true; };
+    services.dunst = { enable = false; };
 
     home.file = {
       # Scripts
