@@ -6,9 +6,6 @@ let
 in {
   imports = [ <home-manager/nixos> ];
 
-  # allow unfree packages as well
-  nixpkgs.config.allowUnfree = true;
-
   # root home
   home-manager.users.root = { pkgs, ... }: {
     home.username = "root";
@@ -28,6 +25,8 @@ in {
     home.username = "${user}";
     home.homeDirectory = "/home/${user}";
     home.stateVersion = "22.11";
+    # allow unfree packages as well
+    nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       firefox # browser
       kitty # terminal
