@@ -97,6 +97,7 @@ in {
   # keyring
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.${user}.enableGnomeKeyring = true;
+  security.pam.services.gtklock = { };
   programs.seahorse.enable = true;
 
   # Enable CUPS to print documents.
