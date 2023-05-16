@@ -152,7 +152,7 @@ in {
       ".config/user-dirs.locale".source =
         ./home-manager/config/user-dirs.locale;
       # libreoffice settings
-      ".config/libreoffice".source = ./home-manager/config/libreoffice;
+      #".config/libreoffice".source = ./home-manager/config/libreoffice;
       # transmission remote settings
       ".config/transmission-remote-gtk".source =
         ./home-manager/config/transmission-remote-gtk;
