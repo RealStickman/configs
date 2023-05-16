@@ -36,9 +36,9 @@ in {
       wofi # app launcher (wayland replacement for rofi)
       fish # fish shell
       libnotify # notifications
-      mako # notification daemon
       xdg-desktop-portal-hyprland # desktop portal (hyprland fork)
       #neovim # text editor
+      dunst # notification daemon
       yt-dlp # video downloader
       #sweet # gtk theme
       waybar # status bar
@@ -51,6 +51,8 @@ in {
       libreoffice-fresh # office document editor
       hunspell # offline spellchecker (en)
       hunspellDicts.de_CH # adds German (Switzerland) for hunspell
+      discord # install discord
+      udiskie # user disk mounting
     ];
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
@@ -128,6 +130,8 @@ in {
       };
     };
 
+    services.dunst = { enable = true; };
+
     home.file = {
       # Scripts
       ".scripts/waybar/player-mpris-tail.py" = {
@@ -158,8 +162,10 @@ in {
         ./home-manager/config/transmission-remote-gtk;
       # TODO firefox configuration
       # TODO calibre configuration
+      # dunst configuration
+      # TODO replace using the built-in dunst support of home-manager
+      ".config/dunst/dunstrc".source = ./home-manager/config/dunst/dunstrc;
     };
 
-    services.mako.enable = true;
   };
 }
