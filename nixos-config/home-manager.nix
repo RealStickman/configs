@@ -18,6 +18,9 @@ in {
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
 
+    # allow unfree packages as well
+    nixpkgs.config.allowUnfree = true;
+
   };
 
   # keep everything using home manager within this block
