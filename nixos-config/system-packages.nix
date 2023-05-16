@@ -24,6 +24,7 @@
     freetype # font rendering and configuration
     open-vm-tools # running on vmware
     podman # containers
+    gtklock # lock screen
   ];
 
   fonts.fonts = with pkgs; [

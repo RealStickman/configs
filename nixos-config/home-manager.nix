@@ -57,7 +57,6 @@ in {
       udiskie # user disk mounting
       thunderbird # email client
       swayidle # idle management
-      gtklock # lock screen
     ];
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
