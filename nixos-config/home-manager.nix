@@ -55,6 +55,9 @@ in {
       hunspellDicts.de_CH # adds German (Switzerland) for hunspell
       discord # install discord
       udiskie # user disk mounting
+      thunderbird # email client
+      swayidle # idle management
+      gtklock # lock screen
     ];
 
     imports = [ ./home-manager/hyprland.nix ./home-manager/fish.nix ];
