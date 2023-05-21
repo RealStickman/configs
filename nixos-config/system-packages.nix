@@ -22,11 +22,15 @@
     libsForQt5.qt5.qtwayland # wayland for at5
     polkit_gnome # graphical authentication agent for polkit
     freetype # font rendering and configuration
+    open-vm-tools # running on vmware
+    podman # containers
+    gtklock # lock screen
   ];
 
   fonts.fonts = with pkgs; [
     fira # fira sans font
     fira-code # fira code font
     font-awesome # icons font
+    fira-mono # fira monospace without ligatures
   ];
 }

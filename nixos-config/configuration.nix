@@ -7,13 +7,9 @@
 let
   user = "exu";
   hostname = "nixos";
-in
-{
-  imports = [
-      ./hardware-configuration.nix
-      ./system-packages.nix
-      ./home-manager.nix
-    ];
+in {
+  imports =
+    [ ./hardware-configuration.nix ./system-packages.nix ./home-manager.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -21,9 +17,7 @@ in
       enable = true;
       configurationLimit = 10;
     };
-    efi = {
-      canTouchEfiVariables = true;
-    };
+    efi = { canTouchEfiVariables = true; };
   };
 
   # Enable completions by nix
@@ -39,22 +33,24 @@ in
       EDITOR = "nvim";
       VISUAL = "nvim";
       SUDO_EDITOR = "nvim";
+      TERMINAL = "kitty";
     };
     # remove nano from default packages
     defaultPackages = [ pkgs.perl pkgs.rsync pkgs.strace ];
     etc = {
       # gtk theme configuration
       # src: https://unix.stackexchange.com/questions/632879/how-to-set-a-system-wide-gtk-theme-in-nixos
-      "gtk-2.0/gtkrc".source =  ./config/gtk-2.0/gtkrc;
-      "gtk-3.0/settings.ini".source =  ./config/gtk-3.0/settings.ini;
-      "gtk-4.0/settings.ini".source =  ./config/gtk-4.0/settings.ini;
+      "gtk-2.0/gtkrc".source = ./config/gtk-2.0/gtkrc;
+      "gtk-3.0/settings.ini".source = ./config/gtk-3.0/settings.ini;
+      "gtk-4.0/settings.ini".source = ./config/gtk-4.0/settings.ini;
     };
   };
 
   networking.hostName = "${hostname}"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   # disable global firewall for the time being
   networking.firewall.enable = false;
@@ -68,9 +64,7 @@ in
 
   # Select internationalisation properties.
   i18n.defaultLocale = "de_CH.UTF-8";
-  console = {
-    keyMap = "de_CH-latin1";
-  };
+  console = { keyMap = "de_CH-latin1"; };
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -84,6 +78,7 @@ in
       enable = true;
       wayland = true;
     };
+    desktopManager.lxqt.enable = true;
   };
 
   # enable gvfs service
@@ -91,9 +86,7 @@ in
 
   # Hyprland
   security.polkit.enable = true;
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland = { enable = true; };
 
   # sudoers file
   security.sudo.configFile = (builtins.readFile ./config/sudoers);
@@ -104,6 +97,7 @@ in
   # keyring
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.${user}.enableGnomeKeyring = true;
+  security.pam.services.gtklock = { };
   programs.seahorse.enable = true;
 
   # Enable CUPS to print documents.
@@ -124,9 +118,7 @@ in
   services.xserver.libinput.enable = true;
 
   # root config
-  users.users.root = {
-    shell = pkgs.fish;
-  };
+  users.users.root = { shell = pkgs.fish; };
 
   # User config
   users.users.${user} = {
@@ -155,6 +147,37 @@ in
   # Enable thumbnailer service
   services.tumbler.enable = true;
 
+  fonts.fontconfig = {
+    enable = true;
+    hinting = {
+      enable = true;
+      autohint = false;
+      style = "hintfull";
+    };
+    subpixel = {
+      rgba = "rgb";
+      lcdfilter = "default";
+    };
+    antialias = true;
+    defaultFonts = {
+      serif = [ "Droid Serif" ];
+      sansSerif = [ "Fira Sans" ];
+      monospace = [ "Fira Code" "Fira Mono" ];
+      #emoji = [ "Font Awesome" ];
+    };
+  };
+
+  virtualisation = {
+    podman = {
+      enable = true;
+      # clean up regularly
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+      };
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -175,7 +198,7 @@ in
   };
 
   # Swapfile
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  swapDevices = [{ device = "/swap/swapfile"; }];
 
   # Enable automatic package upgrades
   #system.autoUpgrade = {
