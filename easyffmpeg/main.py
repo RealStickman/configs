@@ -11,6 +11,9 @@ import csv
 # ffmpeg wrapper
 import ffmpy
 
+# Mediainfo wrapper
+import pymediainfo
+
 # argument parsing
 import argparse
 
@@ -52,6 +55,10 @@ def valid_duration(filename: str, filetype: str):
         with open("error.csv", "a", newline="") as file:
             write = csv.writer(file)
             write.writerow((filetype, filename))
+
+
+def validate_subtitle_size(filename: str):
+    pass
 
 
 parser = argparse.ArgumentParser(description="")
@@ -118,10 +125,6 @@ parser.add_argument(
     help="Stream identifier for english audio",
 )
 
-# Subtitle stuff
-parser.add_argument(
-    "-sn", "--subtitle-name", required=False, type=str, help="Name for subtitles"
-)
 parser.add_argument(
     "-si",
     "--subtitle-stream",
@@ -129,16 +132,6 @@ parser.add_argument(
     type=str,
     help="Stream identifier for subtitles",
 )
-
-"""
-parser.add_argument(
-    "-sd",
-    "--set-default-subtitle",
-    required=False,
-    action="store_true",
-    help="If passed, set the first subtitle as default",
-)
-"""
 
 # Output file
 parser.add_argument("-o", "--output-file", required=True, type=str, help="Output file")
@@ -213,7 +206,6 @@ if args.audio_japanese is None:
 else:
     audiometa = "-metadata:s:a:0 title='Japanese' -metadata:s:a:0 language=jpn -metadata:s:a:1 title='English' -metadata:s:a:1 language=eng"
 
-subtitle = args.subtitle_name
 subtitlestream = args.subtitle_stream
 
 """
@@ -246,7 +238,7 @@ ff = ffmpy.FFmpeg(
         " "
         "{audiometa} -disposition:a:0 default"
         " "
-        "-c:s copy -map {substream}? -metadata:s:s:0 title='{subtitle}' -metadata:s:s:0 language=eng {defaultsub}"
+        "-c:s copy -map {substream}? -metadata:s:s:0 title='English' -metadata:s:s:0 language=eng {defaultsub}"
         " ".format(
             title=title,
             videocodec=videocodec,
@@ -259,7 +251,6 @@ ff = ffmpy.FFmpeg(
             engaudiomap=englishaudio,
             audiometa=audiometa,
             substream=subtitlestream,
-            subtitle=subtitle,
             defaultsub=defaultsub,
         )
     },
