@@ -6,7 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "RealStickman"
+(setq user-full-name "exu"
       user-mail-address "mrc@frm01.net")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -91,3 +91,11 @@
 
 ;; Disable formatter for php
 (setq-hook! 'php-mode-hook +format-with :none)
+
+; auto-virtualenv package configuration
+(use-package! auto-virtualenv
+  :init
+  :config
+  (add-hook! 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+  (add-hook! 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)  ;; If using projectile
+  )

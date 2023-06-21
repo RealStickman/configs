@@ -1,3 +1,4 @@
 /music-normalize/venv/
 /music-normalize/*.log
 /easyffmpeg/venv/
+/venv/
